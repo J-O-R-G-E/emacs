@@ -1,0 +1,37 @@
+* Emacs as an IDE for C/C++
+** Out Of The Box
+ Emacs allows you to use helpful auto-indentation by defualt
+ This comes in handy when you use it with programs such as Python
+
+** Packages Make Emacs Even Better
+ There are two major sites for emacs mapackes:
+ -melpa
+ -elpa
+
+In this script I will use both. 
+
+** What To Expect
+ I have always used emacs for its auto-indentation capability that comes 
+ as soon as you install it. Note: I am the latest OSX
+
+ But then I saw on YouTube several tutorials about Emacs as IDE for C/C++
+ that I found boring. Wrong!
+ I should have learned about it so I didnt miss so much for so long.
+
+ - Code Snippets
+ - Auto Complete
+ - Syntax Checker on The Fly
+
+** Snippets
+I think the best part of this set up are the code snippets.
+This is how you create one:
+- 1) Think of the snippet you man want to use/need
+- 2) Open emacs as you normally would to edit any file. 
+- 3) Now that emacs is open, type 'M-x' OR 'esc+x' This brings up a search bar at the bottom of the window and then type "yas-new-snippet" A new Window will open the First fiel is for the name of the file. The second field is name that you would use inside Emacs to access this code snippet. Below type Exacly how you want your code to look like when you call it. Now to close it press "ctrl+x" + " ctr+x" this will ask you some stuffs that you can handle.
+- 4) Now that you created your first code snippet, just start typing on emacs and hit tab until you see the name you gave it when creating it.
+- 5) If you want to edit a snippet for any reason, type 'M-x' OR 'esc+x' then type "yas-vist-filename" this will bring back the snippet you made to be edited.
+
+Usually you may need to close and re-open emacs in order to setting to take effects.
+Other times, it may need to necessary to reboot the computer.
+
+... 
