@@ -62,7 +62,7 @@ then
     
     echo "Making Changes Needed..."
     sleep 2
-    cp -R snipets  $_EMACS_DIR/
+    cp -R snippets  $_EMACS_DIR/
     
     echo "Done..."
     sleep 2
@@ -71,7 +71,7 @@ else
     echo "Directory .emacs.d  Does Not Exist..."
     sleep 2
 
-    emacs "Creating: $_EMACS_DIR"
+    echo "Creating: $_EMACS_DIR"
     sleep 2
     mkdir -p $_EMACS_DIR
 
@@ -83,7 +83,21 @@ else
     sleep 2
 fi
 
-echo -e  "Setup Completed!"
-sleep 1
+
+echo -e "\nSAVE ALL YOU EMACS BUFFERS\n"
+sleep 7
+echo -e "Setup Completed!\n"
+
+
+# find and save emacs pid
+#emacs_pid=$(pgrep emacs)
+#kill -9 $emacs_pid
+
+
+# kill emacs processes
+pkill emacs
+
+# re open emacs to load all packages 
+emacs
 
 exit
