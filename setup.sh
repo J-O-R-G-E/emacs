@@ -7,8 +7,9 @@
 _EMACS=$HOME/.emacs
 _EMACS_DIR=$HOME/.emacs.d
 _EFILE=pkg
+_ELINUX=pkgLinux
 BACKUP_DIR=$HOME/.originalEmacsFiles.d
-
+USER_OS=`uname`
 
 # Check if we have $HOME/.emacs file
 if [ -e "$_EMACS" ]
@@ -26,10 +27,29 @@ then
 
     echo "Making Changes Needed..."
     sleep 2
-    
-    cat $_EFILE > $_EMACS  # Now lets overide the file
-    echo "Done..."
-    sleep 2
+
+    case "$USER_OS" in
+	"Linux" )
+	   cat $_ELINUX > $_EMACS  # Now lets overide the file
+	    echo -e "Linux OS Detected"
+	    sleep 2
+	    echo -e "Done..."
+	    sleep 2
+	    ;;
+	"Darwin" )
+	    cat $_EFILE > $_EMACS  # Now lets overide the file
+	    echo -e "OS X Detexted"
+	    sleep 2
+	    echo -e "Done..."
+	    sleep 2
+	    ;;
+	
+	* )
+       	    echo "THIS PROGRAM DOES NOT SUPPORT YOUR OS"
+	    exit
+	    ;;
+	
+    esac    
     
 else
     
@@ -42,12 +62,28 @@ else
     touch $_EMACS
     
     echo "Making Changes Needed..."
-    sleep 2
-    cat $_EFILE > $_EMACS
     
-    echo "Done..."
-    sleep 2
-    
+    case "$USER_OS" in
+	    "Linux" )
+		cat $_ELINUX > $_EMACS  # Now lets overide the file
+		echo -e "Linux OS Detected"
+		sleep 2
+		echo -e "Done..."
+		sleep 2
+		;;
+	    "Darwin" )
+		cat $_EFILE > $_EMACS  # Now lets overide the file
+		echo -e "OS X Detexted"
+		sleep 2
+		echo -e "Done..."
+		sleep 2
+		;;
+	    
+	    * )
+       		echo "THIS PROGRAM DOES NOT SUPPORT YOUR OS"
+		exit
+		;;
+    esac
 fi
 
 if [ -d "$_EMACS_DIR" ]
