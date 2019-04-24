@@ -10,6 +10,8 @@ _EFILE=pkg
 _ELINUX=pkgLinux
 BACKUP_DIR=$HOME/.originalEmacsFiles.d
 USER_OS=`uname`
+STATUS=$(dpkg -s emacs | grep status)
+INSTALLED="Status: install ok installed"
 
 # Check if we have $HOME/.emacs file
 if [ -e "$_EMACS" ]
@@ -33,7 +35,14 @@ then
 	   cat $_ELINUX > $_EMACS  # Now lets overide the file
 	    echo -e "Linux OS Detected"
 	    sleep 2
-	    echo -e "Done..."
+
+	    if [ "$STATUS" = "$INSTALLED" ]; then
+	    	echo -e "Done..."
+	    else
+		echo -e "Installing emacs25-nox..."
+		sudo apt install emacs25-nox
+	    fi
+
 	    sleep 2
 	    ;;
 	"Darwin" )
@@ -43,16 +52,16 @@ then
 	    echo -e "Done..."
 	    sleep 2
 	    ;;
-	
+
 	* )
        	    echo "THIS PROGRAM DOES NOT SUPPORT YOUR OS"
 	    exit
 	    ;;
-	
-    esac    
-    
+
+    esac
+
 else
-    
+
     echo "File Does Not Exists..."
     sleep 2
 
@@ -60,15 +69,22 @@ else
     sleep 2
 
     touch $_EMACS
-    
+
     echo "Making Changes Needed..."
-    
+
     case "$USER_OS" in
 	    "Linux" )
 		cat $_ELINUX > $_EMACS  # Now lets overide the file
 		echo -e "Linux OS Detected"
 		sleep 2
-		echo -e "Done..."
+
+                if [ "$STATUS" = "$INSTALLED" ]; then
+                   echo -e "Done..."
+                else
+		    echo -e "Installing emacs25-nox..."
+		    sudo apt install emacs25-nox
+		fi
+
 		sleep 2
 		;;
 	    "Darwin" )
@@ -78,7 +94,7 @@ else
 		echo -e "Done..."
 		sleep 2
 		;;
-	    
+
 	    * )
        		echo "THIS PROGRAM DOES NOT SUPPORT YOUR OS"
 		exit
