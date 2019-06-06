@@ -18,10 +18,22 @@ INSTALLED="Status: install ok installed"
 RHEL=/etc/redhat-release
 
 
+
+if [[ $EUID -ne 0 ]]; then
+    # None Root User
+    echo -e "\nAll installations will be at $HOME"
+else
+    # ROOT USER
+    echo -e "\nAll installations will be at $HOME"
+fi
+
+
+
+
 # Check if we have $HOME/.emacs file
-if [ -e "$_EMACS" ]
-then
+if [ -e "$_EMACS" ]; then
     echo ".emacs File Exists..."
+    echo "$_EMACS"
     sleep 2
 
     echo "Creating: $BACKUP_DIR"
@@ -37,7 +49,7 @@ then
 
     case "$USER_OS" in
 	"Linux" )
-	   cat $_ELINUX > $_EMACS  # Now lets overide the file
+	    cat $_ELINUX > $_EMACS  # Now lets overide the file
 	    echo -e "Linux OS Detected"
 	    sleep 2
 
