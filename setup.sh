@@ -13,6 +13,11 @@ USER_OS=`uname`
 STATUS=$(dpkg -s emacs | grep status)
 INSTALLED="Status: install ok installed"
 
+
+# For Red Hat Enterprise Linux
+RHEL=/etc/redhat-release
+
+
 # Check if we have $HOME/.emacs file
 if [ -e "$_EMACS" ]
 then
@@ -39,8 +44,15 @@ then
 	    if [ "$STATUS" = "$INSTALLED" ]; then
 	    	echo -e "Done..."
 	    else
-		echo -e "Installing emacs25-nox..."
-		sudo apt install emacs25-nox
+		if [ -f "$RHEL" ]; then
+			cat $RHEL
+			sudo subscription-manager attach --auto
+			sudo yum remove emacs -y
+			sudo yum install emacs-nox -y
+		else
+			echo -e "Installing emacs25-nox..."
+			sudo apt install emacs25-nox
+		fi
 	    fi
 
 	    sleep 2
@@ -81,8 +93,15 @@ else
                 if [ "$STATUS" = "$INSTALLED" ]; then
                    echo -e "Done..."
                 else
-		    echo -e "Installing emacs25-nox..."
-		    sudo apt install emacs25-nox
+               		if [ -f "$RHEL" ]; then
+                        	cat $RHEL
+				sudo subscription-manager attach --auto
+                        	sudo yum remove emacs -y
+                        	sudo yum install emacs-nox -y
+                	else
+                    		echo -e "Installing emacs25-nox..."
+                        	sudo apt install emacs25-nox
+                	fi
 		fi
 
 		sleep 2
@@ -136,7 +155,8 @@ else
 fi
 
 
-echo -e "\nSAVE ALL YOU EMACS BUFFERS\n"
+echo -e "\nSAVE ALL YOUR EMACS BUFFERS..."
+echo -e "\nEmacs will be loaded to install its plugins...\n"
 sleep 7
 echo -e "Setup Completed!\n"
 
